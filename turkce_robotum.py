@@ -60,3 +60,16 @@ st.sidebar.caption("Bu Uygulama **Yusuf Efe  Şahin ** Tarafından Geliştirilmi
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("[🛡️ Yönetici Girişi](?p=admin_panel)")
+
+# Tarayıcının konuşma özelliğini kullanmak için gerekli JavaScript kodu
+if konu_icerigi:
+    st.components.v1.html(f"""
+        <script>
+            const text = `{konu_icerigi.replace("`", "")}`; 
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'tr-TR';
+            utterance.pitch = 1.0; 
+            utterance.rate = 1.0; 
+            speechSynthesis.speak(utterance);
+        </script>
+    """, height=0)

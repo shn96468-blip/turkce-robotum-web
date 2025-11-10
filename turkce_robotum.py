@@ -55,4 +55,8 @@ st.sidebar.markdown(
     """
 )
 st.sidebar.info("Robot, aradığınız konuya en yakın eşleşmeyi bulacaktır.")
+
 st.sidebar.caption("Bu Uygulama **Yusuf Efe  Şahin ** Tarafından Geliştirilmiştir.")
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("[🛡️ Yönetici Girişi](?p=admin_panel)")

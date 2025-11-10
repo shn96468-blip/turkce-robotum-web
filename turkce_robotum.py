@@ -7,7 +7,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- NİHAİ VE KAPSAMLI KONULAR SÖZLÜĞÜ (Tüm 40+ Konu Detaylandırıldı) ---
+# --- NİHAİ VE KAPSAMLI KONULAR SÖZLÜĞÜ (Tüm 40+ Konu Düzeltildi) ---
 KONULAR = {
     # 1.1. Sözcükte Anlam
     "gerçek anlam": "⭐ **Gerçek Anlam (Kelimenin Temeli):** Bir kelimenin söylendiğinde akla gelen ilk ve temel anlamıdır. Kelimenin somut ve en masum halidir. Örnek: 'Gözüm **ağrıyor**' (Gerçek ağrı).",
@@ -48,10 +48,12 @@ KONULAR = {
     "fiiller": "🚀 **Fiiller (Cümlenin Turbo Motoru):** İş, oluş, hareket bildiren sözcüklerdir. Cümlede kip (zaman) ve kişi (şahıs) ekleri alırlar.",
     "anlamlarına göre fiiller": "**İş (Kılış)** (Nesne alan), **Durum** (Nesne almayan), **Oluş** (Kendiliğinden değişen) fiillerdir.",
     "yapılarına göre fiiller": "**Basit Fiil** (Ek almamış), **Türemiş Fiil** (Yapım eki almış), **Birleşik Fiil** (İki kelimeden oluşan) fiillerdir.",
+    # DÜZELTME BURADA YAPILDI: Artık 'ek fiil' ve 'ek eylem' aramaları ayrı ayrı çalışacak.
+    "ek fiil": "İsim soylu sözcükleri yüklem yapan veya basit zamanlı fiili birleşik zamanlı fiil yapan ektir. Bu eylem **'idi, imiş, ise, -dir'** şekillerinde karşımıza çıkar. İsimleri yüklem yapma ve fiilleri birleşik zamanlı yapma olmak üzere iki temel görevi vardır.",
+    "ek eylem": "Ek fiilin diğer adıdır. İsim soylu sözcükleri yüklem yapan veya basit zamanlı fiili birleşik zamanlı fiil yapan ektir. Bu eylem **'idi, imiş, ise, -dir'** şekillerinde karşımıza çıkar. İsimleri yüklem yapma ve fiilleri birleşik zamanlı yapma olmak üzere iki temel görevi vardır.",
+    "birleşik zamanlı fiiller": "Basit zamanlı bir fiilin ek fiil alarak ikinci bir kip eki kazanmasıdır (Örn: 'gel-iyor-du' → Şimdiki Zamanın Hikayesi).",
     "fiil çekimi": "Fiillerde **Kip, Kişi, Olumsuzluk ve Soru** eklerinin kullanılmasıdır.",
     "fiillerde anlam kayması": "Bir kipin (zamanın) başka bir kipin yerine kullanılmasıdır. Örnek: 'Yarın sinemaya **giderim**' (Geniş zaman, Gelecek zaman yerine kullanılmış).",
-    "ek fiil ek eylem": "İsim soylu sözcükleri yüklem yapan veya basit zamanlı fiili birleşik zamanlı fiil yapan ektir (İdi, imiş, ise, -dir).",
-    "birleşik zamanlı fiiller": "Basit zamanlı bir fiilin ek fiil alarak ikinci bir kip eki kazanmasıdır (Örn: 'gel-iyor-**du**' $\rightarrow$ Şimdiki Zamanın Hikayesi).",
     "zarflar": "Fiilleri, fiilimsileri, sıfatları veya kendi türünden sözcükleri etkileyen sözcüklerdir (**Durum, Zaman, Yer-Yön, Miktar, Soru** zarfları).",
     "anlatım bozuklukları": "Cümlelerin anlam (Örn: Gereksiz sözcük, mantık hatası) veya yapı (Örn: Ek/fiil eksikliği) bakımından tutarsız olmasıdır.",
     
@@ -66,16 +68,16 @@ def konuyu_bul(arama_terimi):
     if arama_terimi in KONULAR:
         return KONULAR[arama_terimi]
     else:
-        return "Üzgünüm, aradığınız konuyu tam olarak bulamadım. Lütfen listenin sağ tarafındaki konulardan tam adını girin (Örn: 'gerçek anlam', 'anlatıcı türleri' veya 'noktalama işaretleri')."
+        return "Üzgünüm, aradığınız konuyu tam olarak bulamadım. Lütfen listenin sağ tarafındaki konulardan tam adını girin (Örn: 'ek fiil', 'gerçek anlam' veya 'noktalama işaretleri')."
 
 def soru_cozumu_yap(arama_terimi):
     # Soru çözümü modunda (Yapay zeka simülasyonu)
     arama_terimi = arama_terimi.lower().strip()
     
     if "fiil" in arama_terimi or "çekim" in arama_terimi:
-        return "❓ **Örnek Soru Çözümü (Fiiller):** Sorunuzdaki eylemin basit, türemiş veya birleşik yapıda olduğunu belirlemek için öncelikle fiilin kökünü bulmalıyız. Kökten sonraki yapım eklerini kontrol ederek doğru cevaba ulaşabiliriz. Unutmayın, birleşik fiil en az iki kelimeden oluşur. **Cevap:** Türemiş yapılı fiil örneği."
+        return "❓ **Örnek Soru Çözümü (Fiiller/Ek Fiil):** Sorunuzdaki eylemin yapısını, zamanını ve ek fiil alıp almadığını kontrol etmeliyiz. Eğer isim soylu bir sözcük yüklem olmuşsa, orada mutlaka Ek Fiil vardır. **Cevap:** Ek Fiil kullanılarak türetilmiş birleşik zamanlı fiil."
     elif "zarf" in arama_terimi:
-        return "❓ **Örnek Soru Çözümü (Zarflar):** Bir kelimenin zarf olması için bir eylemi, sıfatı ya da başka bir zarfı nitelemesi gerekir. Fiile 'Nasıl?' 'Ne zaman?' sorularını sorarak doğru zarf türünü buluruz. 'Çok hızlı koştu' cümlesinde 'çok', 'hızlı' zarfını etkilemiştir. **Cevap:** Miktar zarfı."
+        return "❓ **Örnek Soru Çözümü (Zarflar):** Bir kelimenin zarf olması için bir eylemi, sıfatı ya da başka bir zarfı nitelemesi gerekir. Fiile 'Nasıl?' 'Ne zaman?' sorularını sorarak doğru zarf türünü buluruz. **Cevap:** Miktar zarfı."
     elif "anlam" in arama_terimi or "sanat" in arama_terimi:
         return "❓ **Örnek Soru Çözümü (Anlam ve Sanatlar):** Söz sanatı sorulduğunda insana ait bir özelliğin insan dışı bir varlığa verilip verilmediğine bakmalıyız. 'Güneş bugün bize **gülümsüyordu**' cümlesinde Kişileştirme sanatı vardır. **Cevap:** Söz sanatı kullanılmıştır."
     else:
@@ -98,7 +100,7 @@ islem_modu = st.radio(
     horizontal=True
 )
 
-konu_adi = st.text_input(f"İstediğiniz Konu Adını Giriniz (Örn: **gerçek anlam** veya **fiiller**):")
+konu_adi = st.text_input(f"İstediğiniz Konu Adını Giriniz (Örn: **gerçek anlam** veya **ek fiil**):")
 
 # Sesli Konuşma Kontrolü (YENİ EK ÖZELLİK)
 konusma_acik = st.checkbox("Robotun Konuyu Sesli Anlatmasını İster misiniz?")
@@ -158,14 +160,4 @@ if st.button("Başlat"):
 st.sidebar.title("Kullanılabilir Konular (Nihai Liste)")
 st.sidebar.markdown(
     """
-    **Sözcükte Anlam:** Gerçek Anlam, Mecaz Anlam, Terim Anlam, Eş Sesli, Atasözleri vb.
-    **Dil Bilgisi:** Fiiller, Zarflar, Anlatım Bozuklukları, Ek Fiil vb.
-    **Yazım Bilgisi:** Yazım Kuralları, Noktalama İşaretleri.
-    **Anlatım:** Anlatım Biçimleri, Düşünceyi Geliştirme Yolları, Paragrafın Yapı Yönü vb.
-    """
-)
-st.sidebar.caption("Lütfen aradığınız konunun tam adını giriniz. (Örn: 'eş ve yakın anlamlı kelimeler', 'noktalama işaretleri').")
-st.sidebar.markdown("---")
-st.sidebar.caption("Bu Uygulama **Yusuf Efe Şahin** Tarafından Geliştirilmiştir.")
-st.sidebar.markdown("---")
-st.sidebar.markdown("[🛡️ Yönetici Girişi](?p=admin_panel)")
+    **Sözc

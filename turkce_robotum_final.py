@@ -46,10 +46,10 @@ def get_search_link(query, search_engine):
         final_query = search_query.replace(' ', '+')
         return f"{GOOGLE_LINK_BASLANGIC}{final_query}"
 
-# Yeni Yönlendirme Fonksiyonu (st.button için gerekli)
+# Yeni Yönlendirme Fonksiyonu (st.button için ZORUNLU)
 def open_url(url):
     """Tarayıcıyı verilen URL'ye yönlendirir."""
-    # Streamlit'te butona basınca URL açmanın en temiz yolu.
+    # st.button'a basınca link açmak için kullanılır.
     st.components.v1.html(f"<script>window.open('{url}', '_blank');</script>", height=0)
 
 
@@ -60,27 +60,30 @@ def render_subject_tab(tab_context, subject_key):
     with tab_context:
         st.header(f"✨ {subject_data['title']} Dersi")
         
-        # --- ANA BUTONLAR: 3 DÜĞME (st.button ile değiştirildi) ---
+        # --- ANA BUTONLAR: st.button ile değiştirildi ---
         col_notes, col_quiz, col_video = st.columns(3)
 
         # A. DERS NOTLARI (GOOGLE LİNKİ)
         with col_notes:
+            # st.link_button yerine st.button kullanılıyor
             if st.button("📝 Detaylı Ders Notlarını Bul", key=f"notes_{subject_key}"):
                 open_url(get_search_link(subject_data['title'], "google"))
         
         # B. SORU ÇÖZME (TESTCOZ)
         with col_quiz:
+            # st.link_button yerine st.button kullanılıyor
             if st.button("✅ Test Çöz - Yeni Nesil Sorular", key=f"quiz_{subject_key}"):
                 open_url(get_search_link("", "testcoz_quiz"))
         
         # C. VİDEO İZLE (TONGUÇ KANAL)
         with col_video:
+            # st.link_button yerine st.button kullanılıyor
             if st.button("📺 Tonguç Akademi 7. Sınıf Kanalı", key=f"tonguc_{subject_key}"):
                 open_url(get_search_link("", "tonguc_kanal"))
         
         st.markdown("---")
 
-        # --- YENİ ÖZELLİK: YAPAY ZEKA BUTONU (st.button ile değiştirildi) ---
+        # --- YAPAY ZEKA BUTONU (st.button ile değiştirildi) ---
         if st.button("🧠 Yapay Zeka Soru Çözdüren Arkadaşı Aç", use_container_width=True, key=f"ai_friend_{subject_key}"):
             open_url(get_search_link("", "ai_chat"))
 

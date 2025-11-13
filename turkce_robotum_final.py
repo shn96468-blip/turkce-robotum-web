@@ -5,7 +5,7 @@ import os
 GOOGLE_LINK_BASLANGIC = "https://www.google.com/search?q="
 TONGUC_KANAL_LINK = "https://www.youtube.com/@tonguc7"
 TESTCOZ_ONLINE_LINK = "https://www.testcoz.com/" 
-GEMINI_CHAT_LINK = "https://gemini.google.com/" # Yapay Zeka Soru Çözücü Linki
+GEMINI_CHAT_LINK = "https://gemini.google.com/" 
 
 
 # --- 2. DERS VE KONU TANIMLARI (Sadece Türkçe) ---
@@ -21,7 +21,6 @@ SUBJECT_MAP = {
 # --- 3. SAYFA AYARLARI ---
 
 st.set_page_config(layout="wide", page_title="Yusuf Efe Şahin | Türkçe Robotum Final") 
-# Yeni ve dikkat çekici başlık: İsim daha büyük ve kalın
 st.markdown("## 👨‍🎓 YUSUF EFE ŞAHİN | 🤖 TÜRKÇE ROBOTUM") 
 st.markdown("---")
 
@@ -29,7 +28,7 @@ st.markdown("---")
 col_main, col_sidebar = st.columns([3, 1]) 
 
 
-# --- 4. ARAMA FONKSİYONLARI ---
+# --- 4. YÖNLENDİRME FONKSİYONU ---
 def get_search_link(query, search_engine):
     """Verilen sorgu için arama linki oluşturur."""
     
@@ -40,12 +39,18 @@ def get_search_link(query, search_engine):
         return TONGUC_KANAL_LINK
 
     elif search_engine == "ai_chat":
-        return GEMINI_CHAT_LINK # Yapay Zeka Linki
+        return GEMINI_CHAT_LINK
 
     else: # Google araması (Hızlı Erişim için)
         search_query = f"{query} 7. Sınıf Konu Anlatımı"
         final_query = search_query.replace(' ', '+')
         return f"{GOOGLE_LINK_BASLANGIC}{final_query}"
+
+# Yeni Yönlendirme Fonksiyonu (st.button için gerekli)
+def open_url(url):
+    """Tarayıcıyı verilen URL'ye yönlendirir."""
+    # Streamlit'te butona basınca URL açmanın en temiz yolu.
+    st.components.v1.html(f"<script>window.open('{url}', '_blank');</script>", height=0)
 
 
 # --- 5. DERS İÇERİĞİ MANTIĞI ---
@@ -55,46 +60,29 @@ def render_subject_tab(tab_context, subject_key):
     with tab_context:
         st.header(f"✨ {subject_data['title']} Dersi")
         
-        # --- ANA BUTONLAR: 3 DÜĞME (Not, Test, Video) ---
+        # --- ANA BUTONLAR: 3 DÜĞME (st.button ile değiştirildi) ---
         col_notes, col_quiz, col_video = st.columns(3)
 
         # A. DERS NOTLARI (GOOGLE LİNKİ)
         with col_notes:
-            st.link_button(
-                "📝 Detaylı Ders Notlarını Bul", 
-                url=get_search_link(subject_data['title'], "google"),
-                type="secondary",
-                key=f"notes_{subject_key}",
-            )
+            if st.button("📝 Detaylı Ders Notlarını Bul", key=f"notes_{subject_key}"):
+                open_url(get_search_link(subject_data['title'], "google"))
         
         # B. SORU ÇÖZME (TESTCOZ)
         with col_quiz:
-            st.link_button(
-                "✅ Test Çöz - Yeni Nesil Sorular", 
-                url=get_search_link("", "testcoz_quiz"), 
-                type="primary", 
-                key=f"quiz_{subject_key}",
-            )
+            if st.button("✅ Test Çöz - Yeni Nesil Sorular", key=f"quiz_{subject_key}"):
+                open_url(get_search_link("", "testcoz_quiz"))
         
         # C. VİDEO İZLE (TONGUÇ KANAL)
         with col_video:
-            st.link_button(
-                "📺 Tonguç Akademi 7. Sınıf Kanalı", 
-                url=get_search_link("", "tonguc_kanal"), 
-                type="primary",
-                key=f"tonguc_{subject_key}",
-            )
+            if st.button("📺 Tonguç Akademi 7. Sınıf Kanalı", key=f"tonguc_{subject_key}"):
+                open_url(get_search_link("", "tonguc_kanal"))
         
         st.markdown("---")
 
-        # --- YENİ ÖZELLİK: YAPAY ZEKA BUTONU ---
-        st.link_button(
-            "🧠 Yapay Zeka Soru Çözdüren Arkadaşı Aç", 
-            url=get_search_link("", "ai_chat"), # Direkt Gemini'ye gider
-            type="primary",
-            use_container_width=True, # Butonu tam genişlikte yapar
-            key=f"ai_friend_{subject_key}"
-        )
+        # --- YENİ ÖZELLİK: YAPAY ZEKA BUTONU (st.button ile değiştirildi) ---
+        if st.button("🧠 Yapay Zeka Soru Çözdüren Arkadaşı Aç", use_container_width=True, key=f"ai_friend_{subject_key}"):
+            open_url(get_search_link("", "ai_chat"))
 
         st.markdown("---")
         
@@ -109,7 +97,9 @@ def render_subject_tab(tab_context, subject_key):
             
             with col:
                 st.markdown(f"**📚 {topic}**")
-                st.link_button("Notları Google'da Bul", url=google_link, type="secondary", key=f"topic_{subject_key}_{topic}_g")
+                # Hızlı erişim linkleri de st.button ile değiştirildi
+                if st.button("Notları Google'da Bul", key=f"topic_{subject_key}_{topic}_g"):
+                    open_url(google_link)
                 st.markdown("---")
 
 

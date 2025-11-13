@@ -21,7 +21,8 @@ SUBJECT_MAP = {
 # --- 3. SAYFA AYARLARI ---
 
 st.set_page_config(layout="wide", page_title="Yusuf Efe Şahin | Türkçe Robotum Final") 
-st.title("👨‍🎓 Yusuf Efe Şahin | Türkçe Robotum")
+# Yeni ve dikkat çekici başlık: İsim daha büyük ve kalın
+st.markdown("## 👨‍🎓 YUSUF EFE ŞAHİN | 🤖 TÜRKÇE ROBOTUM") 
 st.markdown("---")
 
 # --- KRİTİK: İKİ ANA SÜTUN EKLEME (İçerik ve Tanıtım) ---
